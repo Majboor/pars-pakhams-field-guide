@@ -1,7 +1,9 @@
 import { Center, Environment, Float, useGLTF } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import React, { Suspense, useMemo, useRef } from "react";
+import React, { Suspense, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+
+export const YAGI_MODEL_URL = "/models/yagi-antenna.glb";
 
 // Mutable transform state driven by the GSAP scroll timeline in App.jsx.
 // The model is the "host" of the story, so these values are scrubbed as the
@@ -88,10 +90,42 @@ function AntennaFallback() {
   );
 }
 
-function DownloadedModel() {
+class ModelLoadBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error) {
+    this.props.onError?.(error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <>
+          <SceneLights includeEnvironment={false} />
+          <AntennaFallback />
+        </>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+function DownloadedModel({ onReady }) {
   const rigRef = useRef();
-  const { scene } = useGLTF("/models/yagi-antenna.glb");
+  const { scene } = useGLTF(YAGI_MODEL_URL);
   const clonedScene = useMemo(() => scene.clone(true), [scene]);
+
+  useEffect(() => {
+    onReady?.();
+  }, [onReady]);
 
   useFrame(({ clock }, delta) => {
     const rig = rigRef.current;
@@ -122,7 +156,7 @@ function DownloadedModel() {
   );
 }
 
-function SceneLights() {
+function SceneLights({ includeEnvironment = true }) {
   return (
     <>
       <ambientLight intensity={0.85} />
@@ -130,26 +164,28 @@ function SceneLights() {
       <directionalLight position={[4, 5.5, 5]} intensity={2.6} color="#fff6df" castShadow={false} />
       <spotLight position={[-5, 2, 4]} angle={0.5} penumbra={0.8} intensity={1.3} color="#d5af45" />
       <pointLight position={[-3, -2, 3]} intensity={0.8} color="#b72e35" />
-      <Environment preset="warehouse" />
+      {includeEnvironment && <Environment preset="warehouse" />}
     </>
   );
 }
 
-export default function RadioModel() {
+export default function RadioModel({ onReady, onError }) {
   return (
     <Canvas
       camera={{ position: [0, 0, 6.2], fov: 40 }}
       dpr={[1, 1.8]}
       gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }}
     >
-      <SceneLights />
-      <Suspense fallback={<AntennaFallback />}>
-        <Float speed={1.05} rotationIntensity={0.05} floatIntensity={0.14}>
-          <DownloadedModel />
-        </Float>
-      </Suspense>
+      <ModelLoadBoundary onError={onError}>
+        <Suspense fallback={<AntennaFallback />}>
+          <SceneLights />
+          <Float speed={1.05} rotationIntensity={0.05} floatIntensity={0.14}>
+            <DownloadedModel onReady={onReady} />
+          </Float>
+        </Suspense>
+      </ModelLoadBoundary>
     </Canvas>
   );
 }
 
-useGLTF.preload("/models/yagi-antenna.glb");
+useGLTF.preload(YAGI_MODEL_URL);

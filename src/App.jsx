@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useProgress } from "@react-three/drei";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -21,6 +22,7 @@ import GuidePage from "./components/GuidePage.jsx";
 import ProductPage from "./components/ProductPage.jsx";
 import RadioModel, { radioMotion } from "./components/RadioModel.jsx";
 import StorePage from "./components/StorePage.jsx";
+import { antennaGuidesDetailed } from "./data/antennaContent.js";
 import {
   antennaGuides,
   assets,
@@ -34,11 +36,397 @@ import {
   regionalContacts,
   storySections
 } from "./data/content.js";
+import { storeProducts } from "./data/storeContent.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const prefersReducedMotion =
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const MIN_LOADER_MS = 700;
+const ASSET_TIMEOUT_MS = 18000;
+const MEDIA_TIMEOUT_MS = 12000;
+
+const storeAssetUrls = storeProducts.flatMap((product) => product.variants.flatMap((variant) => variant.images));
+
+const antennaAssetUrls = antennaGuidesDetailed.flatMap((guide) => [
+  `https://img.youtube.com/vi/${guide.videoId}/hqdefault.jpg`,
+  guide.videoFile,
+  ...guide.steps.map((step) => step.image)
+]);
+
+function waitForWindowLoad() {
+  if (typeof window === "undefined" || document.readyState === "complete") {
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve) => {
+    window.addEventListener("load", resolve, { once: true });
+  });
+}
+
+function waitForFonts() {
+  if (typeof document === "undefined" || !document.fonts?.ready) {
+    return Promise.resolve();
+  }
+
+  return document.fonts.ready.catch(() => undefined);
+}
+
+function wait(ms) {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
+}
+
+function waitForPaint() {
+  if (typeof window === "undefined" || !window.requestAnimationFrame) {
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(resolve);
+    });
+  });
+}
+
+function withTimeout(promise, ms) {
+  if (typeof window === "undefined") {
+    return promise;
+  }
+
+  return new Promise((resolve) => {
+    const timer = window.setTimeout(resolve, ms);
+    Promise.resolve(promise)
+      .catch(() => undefined)
+      .then(() => {
+        window.clearTimeout(timer);
+        resolve();
+      });
+  });
+}
+
+function normalizeAssetUrl(url) {
+  if (!url || typeof window === "undefined") return null;
+  const trimmed = String(url).trim();
+  if (!trimmed || trimmed.startsWith("#") || trimmed.startsWith("data:") || trimmed.startsWith("blob:")) return null;
+
+  try {
+    return new URL(trimmed, window.location.href).href;
+  } catch {
+    return null;
+  }
+}
+
+function extractSrcsetUrls(srcset) {
+  if (!srcset) return [];
+
+  return srcset
+    .split(",")
+    .map((candidate) => candidate.trim().split(/\s+/)[0])
+    .map(normalizeAssetUrl)
+    .filter(Boolean);
+}
+
+function extractCssUrls(value) {
+  if (!value || value === "none") return [];
+
+  const urls = [];
+  const pattern = /url\((["']?)(.*?)\1\)/g;
+  let match = pattern.exec(value);
+  while (match) {
+    const normalized = normalizeAssetUrl(match[2]);
+    if (normalized) urls.push(normalized);
+    match = pattern.exec(value);
+  }
+
+  return urls;
+}
+
+function collectRenderedAssetUrls(root) {
+  if (!root || typeof window === "undefined") return [];
+
+  const urls = new Set();
+  const add = (url) => {
+    const normalized = normalizeAssetUrl(url);
+    if (normalized) urls.add(normalized);
+  };
+
+  root.querySelectorAll("img").forEach((image) => {
+    add(image.currentSrc);
+    add(image.getAttribute("src"));
+    extractSrcsetUrls(image.getAttribute("srcset")).forEach((url) => urls.add(url));
+  });
+
+  root.querySelectorAll("source").forEach((source) => {
+    add(source.getAttribute("src"));
+    extractSrcsetUrls(source.getAttribute("srcset")).forEach((url) => urls.add(url));
+  });
+
+  root.querySelectorAll("video").forEach((video) => {
+    add(video.currentSrc);
+    add(video.getAttribute("src"));
+    add(video.getAttribute("poster"));
+  });
+
+  root.querySelectorAll("*").forEach((element) => {
+    const styles = window.getComputedStyle(element);
+    extractCssUrls(styles.backgroundImage).forEach((url) => urls.add(url));
+  });
+
+  return [...urls];
+}
+
+function collectRenderedImageElements(root) {
+  if (!root) return [];
+
+  return [...root.querySelectorAll("img")];
+}
+
+function collectRenderedVideoElements(root) {
+  if (!root) return [];
+
+  return [...root.querySelectorAll("video")];
+}
+
+function preloadImage(url) {
+  if (!url || typeof Image === "undefined") {
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve) => {
+    const image = new Image();
+    let settled = false;
+    const done = () => {
+      if (settled) return;
+      settled = true;
+      resolve();
+    };
+
+    image.decoding = "async";
+    image.loading = "eager";
+    image.onload = () => {
+      if (image.decode) {
+        image.decode().catch(() => undefined).then(done);
+      } else {
+        done();
+      }
+    };
+    image.onerror = done;
+    image.src = url;
+
+    if (image.complete) {
+      image.onload();
+    }
+  });
+}
+
+function preloadImageElement(image) {
+  if (!image) return Promise.resolve();
+
+  image.loading = "eager";
+  image.decoding = "async";
+  if ("fetchPriority" in image) {
+    image.fetchPriority = "high";
+  }
+
+  const decode = () => {
+    if (image.decode) {
+      return image.decode().catch(() => undefined);
+    }
+
+    return Promise.resolve();
+  };
+
+  if (image.complete) {
+    return withTimeout(decode(), ASSET_TIMEOUT_MS);
+  }
+
+  return withTimeout(
+    new Promise((resolve) => {
+      const done = () => {
+        image.removeEventListener("load", done);
+        image.removeEventListener("error", done);
+        decode().then(resolve);
+      };
+
+      image.addEventListener("load", done, { once: true });
+      image.addEventListener("error", done, { once: true });
+    }),
+    ASSET_TIMEOUT_MS
+  );
+}
+
+function preloadVideoMetadata(url) {
+  if (!url || typeof document === "undefined") {
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve) => {
+    const video = document.createElement("video");
+    let settled = false;
+    const done = () => {
+      if (settled) return;
+      settled = true;
+      video.removeAttribute("src");
+      video.load();
+      resolve();
+    };
+
+    video.preload = "metadata";
+    video.muted = true;
+    video.playsInline = true;
+    video.onloadedmetadata = done;
+    video.onerror = done;
+    video.src = url;
+    video.load();
+  });
+}
+
+function preloadVideoElement(video) {
+  if (!video) return Promise.resolve();
+
+  video.preload = "metadata";
+  if (video.readyState >= 1) {
+    return Promise.resolve();
+  }
+
+  return withTimeout(
+    new Promise((resolve) => {
+      const done = () => {
+        video.removeEventListener("loadedmetadata", done);
+        video.removeEventListener("canplay", done);
+        video.removeEventListener("error", done);
+        resolve();
+      };
+
+      video.addEventListener("loadedmetadata", done, { once: true });
+      video.addEventListener("canplay", done, { once: true });
+      video.addEventListener("error", done, { once: true });
+      video.load();
+    }),
+    MEDIA_TIMEOUT_MS
+  );
+}
+
+function preloadAsset(url) {
+  const normalized = normalizeAssetUrl(url);
+  if (!normalized) return Promise.resolve();
+
+  if (/\.(mp4|m4v|mov|webm)(\?|#|$)/i.test(normalized)) {
+    return withTimeout(preloadVideoMetadata(normalized), MEDIA_TIMEOUT_MS);
+  }
+
+  if (/\.(avif|gif|jpe?g|png|svg|webp)(\?|#|$)/i.test(normalized)) {
+    return withTimeout(preloadImage(normalized), ASSET_TIMEOUT_MS);
+  }
+
+  return Promise.resolve();
+}
+
+function usePagePreload(routeKey, assetUrls, shellRef) {
+  const [loadState, setLoadState] = useState({ progress: 0, ready: false });
+
+  useEffect(() => {
+    let cancelled = false;
+    let completed = 0;
+
+    setLoadState({ progress: 0, ready: false });
+
+    waitForPaint().then(() => {
+      if (cancelled) return;
+
+      const root = shellRef.current;
+      const renderedUrls = collectRenderedAssetUrls(root);
+      const renderedImages = collectRenderedImageElements(root);
+      const renderedVideos = collectRenderedVideoElements(root);
+      const uniqueUrls = [...new Set([...assetUrls, ...renderedUrls].map(normalizeAssetUrl).filter(Boolean))];
+      const tasks = [
+        waitForWindowLoad(),
+        waitForFonts(),
+        wait(MIN_LOADER_MS),
+        ...uniqueUrls.map((url) => preloadAsset(url)),
+        ...renderedImages.map((image) => preloadImageElement(image)),
+        ...renderedVideos.map((video) => preloadVideoElement(video))
+      ];
+      const total = tasks.length;
+
+      const markComplete = () => {
+        completed += 1;
+        if (cancelled) return;
+        setLoadState({
+          progress: Math.round((completed / total) * 100),
+          ready: completed >= total
+        });
+      };
+
+      tasks.forEach((task) => {
+        Promise.resolve(task).catch(() => undefined).then(markComplete);
+      });
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [assetUrls, routeKey, shellRef]);
+
+  return loadState;
+}
+
+function getRouteAssetUrls({ isLanding, isGuide, isAntenna, isStore, isProduct }) {
+  const shared = [assets.logo, assets.logoSquare];
+
+  if (isLanding) {
+    return [
+      ...shared,
+      assets.hero,
+      assets.pageHero,
+      ...storySections.map((section) => section.image),
+      ...eventMemories.map((memory) => memory.image),
+      ...antennaGuides.map((guide) => guide.image)
+    ];
+  }
+
+  if (isGuide) {
+    return [...shared, assets.hero, assets.pageHero, assets.licenseTable, assets.application];
+  }
+
+  if (isAntenna) {
+    return [...shared, assets.pageHero, ...antennaGuides.map((guide) => guide.image), ...antennaAssetUrls];
+  }
+
+  if (isStore || isProduct) {
+    return [...shared, ...storeAssetUrls];
+  }
+
+  return shared;
+}
+
+function AppLoader({ progress, modelError, modelRequired }) {
+  const safeProgress = Math.min(100, Math.max(6, Math.round(progress)));
+  const statusText = modelError
+    ? "Preparing backup antenna scene"
+    : modelRequired
+      ? "Loading page assets and antenna model"
+      : "Loading page assets";
+
+  return (
+    <div className="app-loader" role="status" aria-live="polite" aria-label="Loading PARS field guide">
+      <div className="app-loader__panel">
+        <img src={assets.logo} alt="" />
+        <div className="app-loader__copy">
+          <strong>PARS / PAKHAMS</strong>
+          <span>{statusText}</span>
+        </div>
+        <div className="app-loader__bar" aria-hidden="true">
+          <span style={{ transform: `scaleX(${safeProgress / 100})` }} />
+        </div>
+        <output>{safeProgress}%</output>
+      </div>
+    </div>
+  );
+}
 
 function Header({ guide = false, antenna = false, store = false }) {
   const homeHref = guide || antenna || store ? "/" : "#top";
@@ -98,7 +486,7 @@ const chapterMeta = [
   { tag: "On Air", focus: "right" }
 ];
 
-function ExperienceStage() {
+function ExperienceStage({ onModelReady, onModelError }) {
   const chapters = useMemo(
     () =>
       storySections.map((section, index) => ({
@@ -131,7 +519,7 @@ function ExperienceStage() {
 
           {/* The model — the host of the story */}
           <div className="stage-canvas" aria-hidden="true">
-            <RadioModel />
+            <RadioModel onReady={onModelReady} onError={onModelError} />
           </div>
 
           {/* FRONT layer — readable typography sits in front of the model */}
@@ -697,61 +1085,103 @@ export default function App() {
   const productMatch = window.location.pathname.match(/^\/store\/([^/]+)$/);
   const isProduct = Boolean(productMatch);
   const isLanding = !(isGuide || isAntenna || isStore || isProduct);
+  const routeKey = window.location.pathname;
+  const shellRef = useRef(null);
+  const routeAssets = useMemo(
+    () => getRouteAssetUrls({ isLanding, isGuide, isAntenna, isStore, isProduct }),
+    [isLanding, isGuide, isAntenna, isStore, isProduct]
+  );
+  const pagePreload = usePagePreload(routeKey, routeAssets, shellRef);
+  const { progress: modelProgress } = useProgress();
+  const [modelReady, setModelReady] = useState(!isLanding);
+  const [modelError, setModelError] = useState(false);
 
-  useLandingChoreography(isLanding);
-  useInnerReveal(!isLanding);
+  useEffect(() => {
+    setModelReady(!isLanding);
+    setModelError(false);
+  }, [isLanding]);
 
+  const handleModelReady = useCallback(() => {
+    setModelReady(true);
+  }, []);
+
+  const handleModelError = useCallback((error) => {
+    console.warn("The GLB antenna model failed to load, so the backup scene was used.", error);
+    setModelError(true);
+    setModelReady(true);
+  }, []);
+
+  const appReady = pagePreload.ready && (!isLanding || modelReady);
+  const loadingProgress = isLanding
+    ? pagePreload.progress * 0.45 + (modelReady ? 100 : modelProgress) * 0.55
+    : pagePreload.progress;
+
+  useEffect(() => {
+    document.body.classList.toggle("is-app-loading", !appReady);
+
+    return () => {
+      document.body.classList.remove("is-app-loading");
+    };
+  }, [appReady]);
+
+  useLandingChoreography(appReady && isLanding);
+  useInnerReveal(appReady && !isLanding);
+
+  let routeContent;
   if (isGuide) {
-    return (
+    routeContent = (
       <>
         <Header guide />
         <GuidePage />
       </>
     );
-  }
-
-  if (isAntenna) {
-    return (
+  } else if (isAntenna) {
+    routeContent = (
       <>
         <Header antenna />
         <AntennaPage />
       </>
     );
-  }
-
-  if (isStore) {
-    return (
+  } else if (isStore) {
+    routeContent = (
       <>
         <Header store />
         <StorePage />
       </>
     );
-  }
-
-  if (isProduct) {
-    return (
+  } else if (isProduct) {
+    routeContent = (
       <>
         <Header store />
         <ProductPage productId={decodeURIComponent(productMatch[1])} />
       </>
     );
+  } else {
+    routeContent = (
+      <div id="top">
+        <Header />
+        <main className="landing">
+          <ExperienceStage onModelReady={handleModelReady} onModelError={handleModelError} />
+          <div className="flow">
+            <Path />
+            <GuideSearch />
+            <MemoryCarousel />
+            <Contacts />
+            <FormsAndRules />
+            <Glossary />
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
   }
 
   return (
-    <div id="top">
-      <Header />
-      <main className="landing">
-        <ExperienceStage />
-        <div className="flow">
-          <Path />
-          <GuideSearch />
-          <MemoryCarousel />
-          <Contacts />
-          <FormsAndRules />
-          <Glossary />
-        </div>
-      </main>
-      <Footer />
-    </div>
+    <>
+      <div ref={shellRef} className={`app-shell ${appReady ? "is-ready" : "is-loading"}`} aria-hidden={!appReady}>
+        {routeContent}
+      </div>
+      {!appReady && <AppLoader progress={loadingProgress} modelError={modelError} modelRequired={isLanding} />}
+    </>
   );
 }
