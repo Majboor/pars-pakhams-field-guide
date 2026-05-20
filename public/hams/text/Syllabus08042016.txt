@@ -1,0 +1,94 @@
+Annexure – II
+SYLLABUS AND DETAILS OF WRITTEN TEST & INTERVIEW FOR THE AWARD
+OF AMATEUR WIRELESS LICENSE
+
+Every applicant, if otherwise exempted by PTA, shall have to pass a written test and
+interview conducted by PTA.
+1.
+
+2.
+
+The written test shall consist of two parts as follows:
+a.
+Technical knowledge – Elementary Electricity, Magnetism, Radio Theory
+and practice.
+b. Operational Knowledge.
+i.
+Amateur Wireless License SOP available on the website
+www.pta.gov.pk
+ii.
+Knowledge of ITU Radio Regulations related to Amateur
+Service.
+iii.
+International ‘Q’ code, Phonetic Alphabets and other
+Abbreviations.
+iv.
+Morse Code – Receiving and Sending conventions.
+DETAILED SYLLABUS.
+
+a.
+Technical Knowledge,
+Elementary Electricity, Magnetism.
+Basic theory of electrical terms, static charge, electric current (AC & DC),
+conductors, insulators, ohms law, amperes, watts, inductance, capacitance, their
+definitions, unit of measurements and their use in Radio Technology.
+Elementary Radio Theory.
+Audio/Radio Frequency Bands, resonance (series & parallel), Audio and Radio
+Frequency transformer, circuit diagram of Radio Receiver and Transmitter (both
+valve type as well as using solid state devices), receiver characteristics like
+sensitivity, selectivity, tone, cross modulation interference, squelch, signal to noise
+ratio, beat frequency oscillator and the distribution of Radio Frequency Spectrum.
+Similarly in case of transmitter, types of oscillator, different modes of modulation
+and transmission, radio wave propagation,. Ground waves, ionospheric layers, sky
+waves, skip zone and fading. Type and kind of Antennae, their construction and
+characteristics. Measuring Instruments generally used by Amateurs for testing the
+performance of Receiver, Transmitter and Antenna. Elementary Theory of Space
+Communication.
+b. Operational Knowledge.
+Pakistan Telecom Authority (PTA), PARS, International Telecom Union (ITU),
+International Amateur Radio Union (IARU) and other Countries Amateur Societies
+– Basic Knowledge about their locations and functions. Basic Knowledge of the
+Pakistan Amateur Service Regulations, 2004, International Radio Regulations
+pertaining to Amateur Radio Service, its various aspects of operation like
+allocation of frequency bands, Call Signs, interference, distress/emergency
+transmissions including International Time signals and Frequency Standard
+Signals. The ‘Q’ code about twenty (20) items should be memorized. Similarly
+International Phonetic Alphabets, numbers and other abbreviations should be
+remembered as given below:“Q” code – QRA, QRG, QRH, QRJ, QRK, QRL, QRM, QRN, QRS, QRT, QRV,
+QRX, QRZ, QSB, QSL, QSO, QSP, QSY, QTH, QTR etc
+
+Phonetic Alphabets such as:A……
+ALFA
+B……BRAVO
+D……
+DELTA
+E……ECHO
+etc.
+
+C……CHARLIE
+F……FOXTROT
+
+3.
+
+Test and Interview:
+In addition to the written test an applicant shall have to appear before the
+representative of PTA for general interview.
+
+4.
+
+General
+a.
+The prescribed written test from Syllabus shall be conducted at PTA HQs or
+Zonal Offices on the dates notified to the applicant on receipt of written test
+fee of Rs. 100/- payment shall be made in the form of Demand Draft, pay
+order only in the name of “Pakistan Telecommunication Authority”.
+b.
+
+The applicants having university degree/diploma from a recognized
+university in electrical, electronics and communications shall be exempted
+from the technical part of the written test. Similarly persons with long
+experience in professional communication services shall also be exempted.
+But they will have to answer the question about the operational aspects of
+the Amateur Radio Services.
+
+

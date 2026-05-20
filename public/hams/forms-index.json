@@ -1,0 +1,64 @@
+{
+  "collectedAt": "2026-05-20",
+  "pakhamsForms": [
+    {
+      "title": "SWL Membership Form - 2026",
+      "localPdf": "hams/forms/pakhams/SWL-Membership-Form-2026.pdf",
+      "localText": "hams/text/SWL-Membership-Form-2026.txt",
+      "sourceUrl": "https://pakhams.com/wp-content/uploads/2026/02/SWL-Membership-Form-2026.pdf",
+      "notes": "Newest SWL membership PDF found in official PAKHAMS WordPress media library."
+    },
+    {
+      "title": "SWL Form V1 2024",
+      "localPdf": "hams/forms/pakhams/SWL-Form-V1-2024.pdf",
+      "localText": "hams/text/SWL-Form-V1-2024.txt",
+      "sourceUrl": "https://pakhams.com/wp-content/uploads/2024/11/SWL-Form-V1-2024-.pdf",
+      "notes": "SWL PDF linked directly from the visible Become Member page."
+    }
+  ],
+  "ptaFormsLinkedByPakhams": [
+    {
+      "title": "Amateur Wireless Station Licence Application - Citizens of Pakistan",
+      "localZip": "hams/forms/pta/form_aw01_citizen_pak_141119.zip",
+      "localPdf": "hams/forms/pta/extracted/form_aw01_citizen_pak_141119.pdf",
+      "localText": "hams/text/form_aw01_citizen_pak_141119.txt",
+      "sourceUrl": "https://www.pta.gov.pk/assets/media/form_aw01_citizen_pak_141119.zip"
+    },
+    {
+      "title": "Amateur Application - Societies, Clubs, Schools, Colleges and Universities",
+      "localZip": "hams/forms/pta/form_clubs_schools_gop_071118.zip",
+      "localPdf": "hams/forms/pta/extracted/form_clubs_schools_gop_071118.pdf",
+      "localText": "hams/text/form_clubs_schools_gop_071118.txt",
+      "sourceUrl": "https://www.pta.gov.pk/assets/media/form_clubs_schools_gop_071118.zip"
+    },
+    {
+      "title": "Amateur Application - Foreigners",
+      "localZip": "hams/forms/pta/foreigners_311208.zip",
+      "localPdf": "hams/forms/pta/extracted/foreigners_311208.pdf",
+      "localText": "hams/text/foreigners_311208.txt",
+      "sourceUrl": "https://www.pta.gov.pk/assets/media/2024-07-19-foreigners_311208.zip"
+    },
+    {
+      "title": "SOP for Issuance of Amateur Radio License",
+      "localZip": "hams/forms/pta/sop_amateur_radio_lic_141119.zip",
+      "localPdf": "hams/forms/pta/extracted/sop_amateur_radio_lic_141119.pdf",
+      "localText": "hams/text/sop_amateur_radio_lic_141119.txt",
+      "sourceUrl": "https://www.pta.gov.pk/assets/media/sop_amateur_radio_lic_141119.zip"
+    },
+    {
+      "title": "Terms and Conditions for Amateur Radio Wireless License",
+      "localZip": "hams/forms/pta/tac08042016.zip",
+      "localPdf": "hams/forms/pta/extracted/tac08042016.pdf",
+      "localText": "hams/text/tac08042016.txt",
+      "sourceUrl": "https://www.pta.gov.pk/assets/media/2024-07-19-tac08042016.zip"
+    },
+    {
+      "title": "Syllabus and Details of Written Test and Interview",
+      "localZip": "hams/forms/pta/Syllabus08042016.zip",
+      "localPdf": "hams/forms/pta/extracted/Syllabus08042016.pdf",
+      "localText": "hams/text/Syllabus08042016.txt",
+      "sourceUrl": "https://www.pta.gov.pk/assets/media/2024-07-19-Syllabus08042016.zip"
+    }
+  ]
+}
+

@@ -1,0 +1,147 @@
+{
+  "collectedAt": "2026-05-20",
+  "sourcePages": [
+    "https://pakhams.com/contact/",
+    "https://pakhams.com/sample-page/",
+    "https://pakhams.com/become-member/"
+  ],
+  "organization": {
+    "name": "Pakistan Amateur Radio Society",
+    "abbreviation": "PARS / PAKHAMS",
+    "website": "https://pakhams.com/",
+    "facebook": "https://facebook.com/pakhams/",
+    "email": "info@pakhams.com",
+    "mailingAddress": "PARS AP2ARS, P.O. Box 1450, Islamabad, 44000, Pakistan"
+  },
+  "executiveBody": {
+    "fromExecutiveBodyPage": [
+      {
+        "name": "Nasir Khan",
+        "callsign": "AP2NK",
+        "role": "President, PARS"
+      },
+      {
+        "name": "Asad Marwat",
+        "callsign": "AP2AUM",
+        "role": "Vice President, PARS"
+      },
+      {
+        "name": "Muhammad Ahmad Tariq",
+        "callsign": "AP2MAT",
+        "role": "Secretary, PARS"
+      },
+      {
+        "name": "Syed Tufail Ahmed",
+        "callsign": "AP2STA",
+        "role": "Deputy Secretary, PARS"
+      },
+      {
+        "name": "Wajahat Haleem",
+        "callsign": "AP2WJ",
+        "role": "Treasurer, PARS"
+      },
+      {
+        "name": "Muhammad Mubeen Ajmal",
+        "callsign": "AP2AJM",
+        "role": "Liaison Officer"
+      }
+    ],
+    "fromContactPage": [
+      {
+        "name": "Nasir Khan",
+        "callsign": "AP2NK",
+        "role": "President, PARS",
+        "email": "ap2nk.nasir@gmail.com"
+      },
+      {
+        "name": "Asad Ullah Marwat",
+        "callsign": "AP2AUM",
+        "role": "Vice President, PARS",
+        "email": "ap2aum@gmail.com",
+        "phone": "03046664958"
+      },
+      {
+        "name": "Hasnat Ahmad Bugvi",
+        "callsign": "AP2HA",
+        "role": "Treasurer",
+        "email": "hbugvi@yahoo.com"
+      },
+      {
+        "name": "Muhammad Ahmad Tariq Fani",
+        "callsign": "AP2MAT",
+        "role": "Secretary, PARS",
+        "email": "tariqfani1970@gmail.com"
+      },
+      {
+        "name": "Syed Tufail Ahmed",
+        "callsign": "AP2STA",
+        "role": "Deputy Secretary, PARS",
+        "email": "Syedtufailahmed@gmail.com"
+      },
+      {
+        "name": "Muahmmad Mubeen Ajmal",
+        "callsign": "AP2AJM",
+        "role": "Liaison Officer",
+        "email": "Mubeenajmal@gmail.com"
+      }
+    ],
+    "note": "The official Executive Body page lists Wajahat Haleem AP2WJ as Treasurer, while the official Contact page lists Hasnat Ahmad Bugvi AP2HA as Treasurer. Both are preserved with source context."
+  },
+  "regionalCoordinators": [
+    {
+      "region": "Lahore",
+      "name": "Sohaib Ahmed",
+      "callsign": "AP2SBA",
+      "email": "sohaibahmed351@gmail.com",
+      "phone": "+92321 5704046"
+    },
+    {
+      "region": "Lahore",
+      "name": "Adeel Khalid",
+      "callsign": "AP2DD",
+      "email": "adeelkhalid74@hotmail.com",
+      "phone": "+92334 4226212"
+    },
+    {
+      "region": "Peshawar",
+      "name": "Nadeem Akhtar Sadiqi",
+      "callsign": "AP2NAS",
+      "email": "ap2nas-psh@pakhams.com",
+      "phone": "+92 (0)300 8591744"
+    },
+    {
+      "region": "Peshawar",
+      "name": "Syed Tufail Ahmed",
+      "callsign": "AP2STA",
+      "email": "Syedtufailahmed@gmail.com",
+      "phone": "+92(0)3005965545"
+    },
+    {
+      "region": "Quetta",
+      "name": "Dr. M. Arif Mengal",
+      "callsign": "AP2MAA",
+      "email": "arifmengal2@yahoo.com",
+      "phone": "+92 (0)3337835679"
+    },
+    {
+      "region": "Karachi",
+      "name": "Muhammad Salman",
+      "callsign": "AP2MS",
+      "email": "ap2ms@hotmail.com",
+      "phone": "+92 (0)3452432509"
+    },
+    {
+      "region": "Faisalabad",
+      "name": "Ghulam Hussain",
+      "callsign": "AP2GH",
+      "email": "ap2gh@yahoo.com",
+      "phone": "+92 (0)300 8666169"
+    }
+  ],
+  "membershipFormContact": {
+    "name": "Mr. Wajahat Haleem",
+    "address": "House # 202, Street # 11, Sector Orchid, Taj Residencia, near I-14, Rawalpindi, Pakistan",
+    "account": "UBL 0659065901007917 - Pakistan Amateur Radio Society"
+  }
+}
+

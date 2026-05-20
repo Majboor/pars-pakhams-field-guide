@@ -1,0 +1,177 @@
+License No.
+
+Call Sign:
+
+Date
+Annexure – I
+
+Terms & Conditions for Amateur Radio Wireless License
+1. Utilization of the Amateur Station.— (1) The Amateur station shall be utilized for self-training in wireless
+communication techniques, solely with a personal aim and without pecuniary interest.
+Provided that the use of a licensed club station located in an institution/ school/ college/ university etc. is
+admissible for technical studies and training in radio communication technique without pecuniary interest.
+(2) The station shall be used for receiving and transmitting only on specified Amateur frequency band.
+(3) The station shall not be operated by any other person(s) except the person duly Licensed by the Authority.
+2.Messages.— (1) The exchange of communication shall be restricted to communicate with the stations listed in the
+International Radio Amateur Call Books.
+Provided that the Authority may restrict communication with the stations of some specific countries.
+(2)The conversation/transmission in plain language shall be restricted to:—
+(a) technology - mainly wireless equipment, radio propagation reports, signal strength, quality and tone of the signals;
+and
+(b) personal family matters and weather, excluding politics, religion or any other subject of controversial nature.
+(3)The conversation/transmission of the following shall be prohibited:—
+(a) music or any other taped broadcast material;
+(b)any misleading calls, signals, news, advertisements, business matters or other public affairs, so as to cause offence and
+arouse racial, religious or communal enmity;
+(c)messages for any pecuniary reward or commercial messages for third parties;
+(4) In case of national emergencies and other natural calamities such as floods, cyclone, wild fire, earthquake and war
+etc., the licensee and its equipment can be called upon at the request of the Authority or Federal Government to extend
+help and co-operation to provide communication service.
+3.Frequency, power & interference control.— (1) An Amateur station shall be operated only on the frequency
+bands allowed by the Authority.
+(2) The licensee shall be properly trained and equipped with proper instruments to ensure the accuracy of
+frequency and emitted power of the equipment used.
+(3) The licensee shall be responsible for radiating a clean signal free of all harmonics and spurious emission etc.
+(4) The licensee shall be held responsible for causing interference of any kind to all other Wireless Services including
+disturbance to the neighbors in respect of TV and Radio broadcast.
+4.Record of operation (Log -Book).— (1) A station Log-Book must be maintained by every licensee according to the
+format as prescribed in Annex-I of these terms and conditions containing information about the date, time, stations
+worked, RST (Readability, Strength, Tone) reports and any other information about propagation.
+(2) Any illegal/pirate signals or distress "May Day" call or any other signals pertaining to national or international issues
+heard on the Amateur Bands may be recorded and handed over to the concerned authority as soon as possible.
+Provided that such information shall not be passed on to any other person or a third party.
+(3) The licensee shall be responsible for proper maintenance of Log-book and make readily available for inspection to the
+Authority's authorized inspectors.
+(4) The licensee may at any time be called upon to present his Station 'Log-book' in the office of the Authority, if
+and when so desired.
+(5) The Licenses issued to Societies, Clubs and Teaching/Training Institutions shall be asked by the Authority to
+report about their activities from time to time.
+(6) The licensee shall submit an annual progress report about the operation of such station.
+5. Safety and Secrecy.— (1) A licensee shall be personally responsible for the safe custody of the equipment against
+trespassing by any unauthorized person.
+(2) The station antenna shall be constructed/erected and located in such a manner so as not to cause any harm, damage or
+risk to the life and property of any third party including any public utility services.
+(3) All safety precautions against electrical shocks from high voltages both local power supplies or Static Atmospheric
+Charges to the operator or anyone else shall be duly taken/ protected by the licensee.
+(4) A licensee shall, if ever called upon by the Authority to pass on some important messages, shall do so without any
+obligation and keep such operation confidential.
+6. General operating procedures.— (1) The Radio Amateur Services can place special demands on its operators,
+being a representative of the country on the 'Air'.
+Provided that it involves special behavioral conduct, decorum and transmission ethics.
+
+(2) The following special procedures shall be observed to operate the station:—
+(a) never start the transmission without checking that the frequency is free;
+(b)if the frequency is free, then give a call for the station that the licensee wants to communicate;
+(c)'Call Sign' of the called station as well as licensee's own call sign shall be spelled out in the 'Phonetic
+Alphabets' and figure code, as given in the ITU Conventions.
+(d)in case the licensee finds a station giving 'CQ' call specially for' AP2',then listen carefully and after the calling
+station 'passes' over , then start transmission on the same frequency by the licensee's call-sign repeating
+both his and the licensee's call-sign - (in phonetic if necessary) three times and listen again on the
+frequency;
+Provided that if the station calls the licensee back, then the 'QSO' may continue.
+Provided further that in case some other station has in the meantime established the contact with that
+station, then wait till their 'QSO' ends, the licensee may then try again by calling the same station.
+(e)in case the frequency is free and there is no callings station, the licensee can give a general 'CQ' call for about three
+times repeating the licensee's 'Call Sign' both in simple and Phonetic Alphabets and close the licensee's
+transmission by saying 'Over' "AP2... listening carefully for any possible call";
+Provided that the licensee may call other amateur stations who are specially interested for a QSO.
+(f)after the licensee has finished the' QSO' with one or more stations, an operator may declare that he/she is
+closing the transmissions 'QRT' and pass on greetings '73,s' to the last station worked; Provided that before
+closing down/switching off, however, a good operator listens/scans around the whole band for any signal of
+special interest.
+(g)The testing/adjustments of Receiver, Transmitter and Antenna shall be carried out carefully taking all
+precautions not to cause any disturbance or interference; and
+(h) Transmitter and Antenna shall be tested on low power prior to full power preferable with a 'Dummy
+Load'.
+Provided that the test shall be completed in the shortest possible time. Simple/ un-modulated' Carrier' shall never be
+connected to the antenna for more than 30 seconds.
+7.Inspection.—(1) An officer duly authorized by the Authority can enter and inspect the Amateur wireless station
+including its equipment, antenna, instruments and Log-Book.
+Provided that the licensee shall extend all help and assistance to authorized inspector.
+(2) A licensee when called upon in writing shall appear in the office of the Authority along with all the information.
+8.Indemnity.—(1)The Licensee shall indemnify the Authority against all actions, claims and demands which may be brought
+or made by any person, body corporate or company in respect of any injury, damage or loss arising from any act,
+licensed or permitted by the license.
+(2) No suit, prosecution or other legal proceedings shall lie against the Authority or any member or employee of the
+Authority in respect of anything done or intended to be done by the Authority in good faith.
+9. In case of Foreigner only—
+a) Obligation / Restriction for Foreign Amateur: Holder of establishment of license of Amateur Radio
+Station cannot perform the following activities:
+i. Use of ciphering / coding equipment.
+ii. Communication with I countries with which Pakistan does not have any diplomatic relations.
+iii. To receive and send International messages to the agencies belonging to other sources.
+iv. To use the message, which are not clear and non-understandable.
+v. Aiding criminal activities.
+vi. Engaging in obscenity, profanity and indecency.
+vii. Import / carrying his/her equipment without prior approval from the Authority.
+viii. New call sign will be assigned with suffix "F" for distinction and shall not be allowed to operate with
+his/her home country's call sign.
+10. Mobile or Portable Station—
+Use of mobile or portable station in Pakistan is not allowed.
+
+.
+
+xx
+For and on behalf of the Licensee
+Office Stamp
+
+For and on behalf of PTA
+Director (RBS), PTA Headquarters, Islamabad
+Office Stamp
+
+Page 1 of 2
+
+License No.
+
+Call Sign:
+
+Date
+
+Annexure – I
+
+Terms & Conditions for Amateur Radio Wireless License
+Date
+
+Time (UTC)
+Start
+Finish
+
+Freq.
+
+Mode
+
+Station Called/
+Worked
+
+RST Report
+Sent
+Rec'd
+
+Remarks
+
+QSL
+S
+
+R
+
+QSO
+No.
+
+Note:
+i. The Station Log-Book must be properly printed and Bound or PC based electronic Log-Book may be maintained in operator's PC and
+should be presented on demand.
+ii. It should register all operations performed at the station.
+iii. It should always be kept readily available at the Station.
+iv. Name of the operator of station contacted and location may be entered in Remarks column.
+
+xx
+For and on behalf of the Licensee
+Office Stamp
+
+For and on behalf of PTA
+Director (RBS), PTA Headquarters, Islamabad
+Office Stamp
+
+Page 2 of 2
+
+
